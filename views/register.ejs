@@ -1,0 +1,43 @@
+<% include partials/header %>
+
+<div class="row">
+    <div class="log-form">
+        <form action="/register" method="POST">
+            <h1 class="h3 mb-3 text-center">Sign Up</h1>
+            <div class="form-group register">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" name="username" placeholder="username" required autofocus>
+            </div>
+            <div class="form-group register">
+                <label for="firstName">First Name</label>
+                <input class="form-control title-case" type="text" name="firstName" placeholder="first name" required>
+            </div>
+            <div class="form-group register">
+                <label for="lastName">Last Name</label>
+                <input class="form-control title-case" type="text" name="lastName" placeholder="last name" required>
+            </div>
+            <div class="form-group register">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" placeholder="email@example.com" required>
+            </div>
+            <div class="form-group register">
+                <label for="avatar">Avatar URL (Optional)</label>
+                <input class="form-control" type="text" name="avatar" placeholder="avatar url">
+            </div>
+            <div class="form-group register">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" placeholder="password" required>
+            </div>
+            <div class="form-group register-end">
+                <label for="admin">Admin Code (Optional)</label>
+                <input class="form-control" type="password" name="adminCode" placeholder="">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Sign Up!</button>
+            </div>
+        </form>
+        <a href="/campgrounds">Go Back</a>
+    </div>
+</div>
+
+<% include partials/footer %>

@@ -1,0 +1,101 @@
+.delete-form {
+    display: inline;
+}
+
+.center {
+    text-align: center;
+}
+
+.log-form {
+    width: 30%;
+    margin: 25px auto;
+}
+
+.checked {
+    color: orange;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+.register {
+    margin: 3px auto;
+}
+
+.register-end {
+    margin-top: 3px;
+}
+
+.title-case {
+    text-transform: capitalize;
+}
+
+/*Large devices (desktops, 992px or more)*/
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+/*Medium devices (tablets, less than 992px)*/
+
+@media (max-width: 991.98px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+
+/*Small devices (landscape phones, less than 768px)*/
+
+@media (max-width: 767.98px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+/*Extra small devices (portrait phones, less than 576px)*/
+
+@media (max-width: 575.98px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+/*login form styles*/
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/*end login form styles*/

@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <h1>Create a New Campground</h1>
+        </div>
+        <div class="col-xs-4">
+            <form action="/campgrounds" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="campground[name]" id="name" placeholder="Yosemite" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload Image - only JPG, JPEG, PNG, and GIF are allowed</label>
+                    <br>
+                    <input type="file" id="image" name="image" accept="image/png,image/gif,image/jpeg,image/jpg" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price per Night</label>
+                    <input class="form-control" type="number" name="campground[price]" id="price" placeholder="3.50" step="0.50" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input class="form-control" type="text" name="campground[location]" id="location" placeholder="Yosemite National Park, CA" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input class="form-control" type="text" name="campground[description]" id="description" placeholder="California’s Sierra Nevada mountains." required>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/campgrounds">Go Back</a>
+        </div>
+    </div>
+    <script>
+        function activatePlacesSearch() {
+            var input = document.getElementById("location");
+            var autocomplete = new google.maps.places.Autocomplete(input);
+        }
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANsplbu_wQ2HF2Fp29fD_X0LA_xczXkgc&libraries=places&callback=activatePlacesSearch"></script>
+    <% include ../partials/footer %>
