@@ -19,7 +19,7 @@ const reviewRoutes = require("./routes/reviews");
 const indexRoutes = require("./routes/index");
 const userRoutes = require("./routes/users");
 
-mongoose.connect("mongodb+srv://isaacsmith:<yelpcamp>@cluster0-yvfkc.mongodb.net/yelp_camp?retryWrites=true");
+mongoose.connect("mongodb+srv://isaacsmith:yelpcamp@cluster0-yvfkc.mongodb.net/yelp_camp?retryWrites=true", { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
