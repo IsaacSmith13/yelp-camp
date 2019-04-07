@@ -20,7 +20,6 @@ const indexRoutes = require("./routes/index");
 const userRoutes = require("./routes/users");
 
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
-console.log(process.env.DATABASEURL);
 mongoose.set('useCreateIndex', true);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");

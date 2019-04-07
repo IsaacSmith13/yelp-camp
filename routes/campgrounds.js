@@ -6,6 +6,7 @@ const middleware = require("../middleware");
 const NodeGeocoder = require('node-geocoder');
 const multer = require('multer');
 const cloudinary = require('cloudinary');
+const async = require("async");
 
 //multer configuration
 const storage = multer.diskStorage({
