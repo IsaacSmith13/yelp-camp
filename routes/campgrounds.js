@@ -6,10 +6,9 @@ const middleware = require("../middleware");
 const NodeGeocoder = require('node-geocoder');
 const multer = require('multer');
 const cloudinary = require('cloudinary');
-const async = require("async");
 
 //multer configuration
-const storage = multer.diskStorage({
+let storage = multer.diskStorage({
     filename: function(req, file, callback) {
         callback(null, Date.now() + file.originalname);
     }
@@ -50,7 +49,7 @@ router.get("/", function(req, res) {
     if (req.query.search) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         Campground.find({ name: regex }).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allCampgrounds) {
-            Campground.count({ name: regex }).exec(function(err, count) {
+            Campground.countDocuments({ name: regex }).exec(function(err, count) {
                 if (err) {
                     console.log(err);
                     res.redirect("back");
@@ -73,7 +72,7 @@ router.get("/", function(req, res) {
     else {
         // get all campgrounds from DB
         Campground.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allCampgrounds) {
-            Campground.count().exec(function(err, count) {
+            Campground.countDocuments().exec(function(err, count) {
                 if (err) {
                     console.log(err);
                 }
