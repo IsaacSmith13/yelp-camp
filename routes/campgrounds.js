@@ -91,10 +91,10 @@ router.get("/", function(req, res) {
 });
 
 // CREATE - add new campground to DB
-router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) {
+router.post("/", middleware.isLoggedIn, upload.single('image'), async function(req, res) {
     if (req.file) {
         // upload file to cloudinary
-        cloudinary.v2.uploader.upload(req.file.path, function(err, uploadedImage) {
+        await cloudinary.v2.uploader.upload(req.file.path, function(err, uploadedImage) {
             if (err) {
                 req.flash("error", "Only image file types are supported");
                 return res.redirect("back");
@@ -107,7 +107,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             }
         });
     }
-}, async function(req, res) {
+
     try {
         // add author object to campground on req.body
         req.body.campground.author = {
@@ -132,6 +132,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
         req.flash('error', err.message);
         res.redirect('back');
     }
+
 });
 
 // NEW - form to add new campground
