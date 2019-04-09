@@ -43,7 +43,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //pass current user through
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
@@ -56,11 +56,11 @@ app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 
 //404 not found
-app.get("/*", function(req, res) {
+app.get("/*", function (req, res) {
     req.flash("error", "Page not found");
     res.redirect("back");
 });
 
-app.listen(process.env.PORT, process.env.IP, function() {
+app.listen(process.env.PORT, process.env.IP, function () {
     console.log("The YelpCamp Server Has Started");
 });

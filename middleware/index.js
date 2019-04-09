@@ -21,7 +21,7 @@ middlewareObj.isReviewOwner = function(req, res, next) {
             }
             else {
                 // does user own the comment?
-                if (foundReview.author.id.equals(req.user._id)) {
+                if (foundReview.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 }
                 else {

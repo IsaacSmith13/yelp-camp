@@ -63,7 +63,7 @@
                     <p>
                       <%= review.text %>
                     </p>
-                    <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                    <% if(currentUser && review.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
                       <div class="float-right">
                         <a href="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>/edit" class="btn btn-sm btn-warning">Edit</a>
                         <form class="delete-form" action="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
