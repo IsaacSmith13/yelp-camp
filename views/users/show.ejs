@@ -1,37 +1,103 @@
 <% include ../partials/header %>
-    <div class="row">
-        <div class="col-md-4">
-            <h1>
-                <%= user.firstName + " " + user.lastName %>
-            </h1>
-            <img src="<%= user.avatar %>" alt="Image not found" onerror="this.onerror=null;this.src='https://images.unsplash.com/placeholder-avatars/large.jpg';" />
-            <% if(currentUser && currentUser.isAdmin) { %>
-                <div class="caption">
-                    <a href="mailto:<%= user.email %>">
-                        <%= user.email %>
-                    </a>
-                </div>
-                <% } %>
-                    <div>
-                        <% if(user.description) { %>
-                            <%= user.description %>
-                                <% } %>
-                    </div>
-        </div>
-        <div class="col-md-8">
-            <h3>
-                <%= user.username %>'s campgrounds:</h3>
-            <ul>
-                <% campgrounds.forEach(function(campground) { %>
-                    <li>
-                        <a href="/campgrounds/<%= campground.id %>">
-                            <%= campground.name %>
-                        </a>
-                        <img src="<%= campground.image %>" />
-                    </li>
-                    <% }); %>
-            </ul>
-        </div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<div class="page container">
+
+    <div class="pageTitle">
+        <h2><%=user.firstName%> <%=user.lastName%>'s Profile</h2>
     </div>
 
-    <% include ../partials/footer %>
+   <div id="userProfileContent">
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs mb-3 w-100" role="tablist">
+        <li role="presentation" class="nav-item w-50 text-center"><a class="nav-link active rounded-0 m-0" href="#posts" aria-controls="posts" role="tab" data-toggle="tab">Posts</a></li>
+        <li role="presentation" class="nav-item w-50 text-center"><a class="nav-link rounded-0 m-0" href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+      </ul>
+        <!-- Tab panes -->
+        <div class="tab-content p-0">
+            <div role="tabpanel" class="tab-pane active" id="posts">
+                <div class="row">
+                <% for (i = 0; i < campgrounds.length; i++) {
+                var campground = campgrounds[i]; %>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 p-0">
+                        <div class="imagePins">
+                            <a href="/campgrounds/<%=campground._id%>" class="imagePinsLink"></a>
+                            <div class="imgAndCap">
+                                <div class="imgbackground" style="background-image: url('<%=campground.image%>');"></div>
+                                 <div class="caption">
+                                     <% var campgroundName = campground.name;
+                                        if(campground.name.length > 50) {
+                                           campgroundName = campgroundName.substring(0,50) + "...";
+                                        }; %>
+                                    <p class="m-0 p-0"> <%= campgroundName %></p>
+                                </div>
+                            </div>
+                            <% if(campground.rating && campground.rating.length !== 0) { %>
+                                <p class="text-center mt-0">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 1.5) { %> checked <% } %>"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 2.5) { %> checked <% } %>"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 3.5) { %> checked <% } %>"></span>
+                                    <span class="fa fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></span>
+                                </p>
+                            <% } else { %>
+                                <div class="pinUnrated"><em>Unrated</em></div>
+                            <% } %>
+                            <div class="overlay">
+                                <% if(currentUser && currentUser.id == campground.author.id || currentUser && currentUser.isAdmin) { %>
+                                    <form class="inline" action="/campgrounds/<%=campground.id%>?_method=DELETE" method="POST">
+                                        <i id="campgroundDelete" class="fa fa-trash" aria-hidden="true"></i>
+                                    </form>
+                                    <a href="/campgrounds/<%=campground.id%>/edit">
+                                        <i id="campgroundEdit" class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                <% } %>
+                            </div>
+
+                        </div>
+                    </div>
+                <% }; %>
+            </div>
+            </div>
+            <div role="tabpanel" class="tab-pane mt-0" id="reviews">
+                <div class="row px-4">
+                    <% reviews.forEach(function(review){ %>
+                    <div class="col-12 well pt-3">
+                        <div class="row">
+                            <div class="col-4">
+                                Campground: <a href="/campgrounds/<%=campground.id%>"><%=campgroundName%></a>
+                            </div>
+                            <div class="col-4 text-center">
+                                <%=user.username%>'s Rating:
+                                <!--on one line to avoid extra space-->
+                                <%-'<span class="fa fa-star checked"></span>'.repeat(review.rating)%><%-'<span class="fa fa-star"></span>'.repeat(5 - review.rating)%>
+                            </div>
+                            <div class="col-4">
+                            <span class="float-right"><em><%= review.updatedAt.toDateString() %></em></span>
+                            </div>
+                        </div>
+                    <hr class="bold pt-3">
+                    </div>
+                    <div class="col-12 well p-3 mb-3">
+                        <p class="px-3 text-center">
+                          <%= review.text %>
+                        </p>
+                        <% if(currentUser && review.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                          <div class="float-right">
+                            <a href="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>/edit" class="btn btn-sm btn-warning">Edit</a>
+                            <form class="delete-form" action="campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                              <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                          </div>
+                        <% } %>
+                    </div>
+                <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%  include ../partials/footer %>

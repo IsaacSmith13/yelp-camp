@@ -7,23 +7,24 @@
     <title>YelpCamp</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <link rel="stylesheet" href="/stylesheets/main.css" type="text/css">
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="/">YelpCamp</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item <%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>"><a class="nav-link" href="/campgrounds">Home</a></li>
                     <li class="nav-item">
-                        <form class="form-inline" action="/campgrounds" method="GET">
-                            <input class="form-control ml-sm-4 mr-sm-2" type="text" name="search" placeholder="Search for a campground" aria-label="Search for a campground">
+                        <form class="form-inline btn-group" action="/campgrounds" method="GET">
+                            <input id="searchBar" class="form-control ml-md-4 mr-0" type="text" name="search" placeholder="Search for a campground" aria-label="Search for a campground">
                             <button class="btn btn-dark btn-outline-light my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </li>

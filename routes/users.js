@@ -5,20 +5,27 @@ const Review = require("../models/review");
 const User = require("../models/user");
 const middleware = require("../middleware");
 
-//user profile
-router.get("/:username", function(req, res) {
-    User.findOne(req.params, function(err, foundUser) {
+//show user profile
+router.get("/:username", function (req, res, next) {
+    User.findOne({ "id": req.params.username.toLowerCase() }, function (err, foundUser) {
         if (err || !foundUser) {
             req.flash("error", "User not found");
             return res.redirect("back");
         }
-        Campground.find().where('author.id').equals(foundUser.id).exec(function(err, foundCampgrounds) {
-            if (err) {
-                req.flash("error", "Something went wrong.");
-                return res.redirect("back");
+        async function send() {
+            try {
+                const foundCampgrounds = await Campground.find({ "author.id": foundUser._id }).populate("ratings");
+                const foundReviews = await Review.find({ "author.id": foundUser._id });
+                res.render("users/show", { user: foundUser, campgrounds: foundCampgrounds, reviews: foundReviews });
             }
-            res.render("users/show", { user: foundUser, campgrounds: foundCampgrounds });
-        });
+            catch (err) {
+                if (err) {
+                    req.flash("error", err.message);
+                    return res.redirect("back");
+                }
+            }
+        }
+        send();
     });
 });
 

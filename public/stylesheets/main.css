@@ -1,3 +1,31 @@
+.jumbotron {
+    background-image: url("http://wallpaperswide.com/download/banff_national_park_alberta_canada-wallpaper-3840x1600.jpg");
+    background-color: lightgray;
+    color: white;
+    background-size: cover;
+}
+
+.caption {
+    margin-top: 1rem;
+    word-wrap: break-word;
+    text-align: center;
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
+}
+
+.well {
+    background-color: #efefef;
+}
+
+hr {
+    border-top: 1px solid #bdbdbd;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #428bca;
+}
+
 .delete-form {
     display: inline;
 }
@@ -48,7 +76,6 @@
     }
 }
 
-
 /*Small devices (landscape phones, less than 768px)*/
 
 @media (max-width: 767.98px) {
@@ -64,6 +91,173 @@
         column-count: 1;
     }
 }
+
+.pinRating {
+    display: block;
+}
+
+.pinUnrated {
+    text-align: center;
+}
+
+.imagePins {
+    display: block;
+    margin: 0.2rem;
+    padding: 0.5rem;
+    text-decoration: none;
+    position: relative;
+}
+
+/* user profile */
+
+span .fa-star {
+    margin: 0;
+    padding: 0;
+}
+
+#userProfileContent {
+    height: 100%;
+}
+
+#userProfileContent ul {
+    margin-bottom: 3rem;
+}
+
+.nav-tabs {
+    background-color: transparent;
+    margin-bottom: 2rem;
+}
+
+.nav-tabs>li>a {
+    background-color: lightgray;
+    color: #000000;
+    border: 1px solid #cccccc;
+    opacity: 0.65;
+    margin: 0;
+    border-radius: 0;
+}
+
+#searchBar {
+    border-radius: .25rem 0rem 0rem .25rem;
+}
+
+.nav-tabs>li>a:focus {
+    opacity: 1;
+    background-color: #5c0e9e;
+    border: 1px solid #4d0d82;
+}
+
+.nav-tabs>li:hover {
+    opacity: 1;
+    background-color: #5c0e9e;
+    border: none;
+}
+
+.nav-tabs>.nav-item>.active,
+.nav-tabs>.nav-item>.active:focus,
+.nav-tabs>.nav-item>.active:hover {
+    color: white;
+    opacity: 1;
+    background-color: #5c0e9e;
+    cursor: default;
+    border: 1px solid #4d0d82;
+}
+
+.tab-content {
+    overflow: auto;
+    padding: 1rem;
+}
+
+.profileImagePins {
+    height: 430px;
+}
+
+.imagePins:hover {
+    color: #000000;
+}
+
+.imagePins:hover .overlay {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+}
+
+.imagePinsLink {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+}
+
+.imagePins:visited,
+.imagePins:active {
+    color: black;
+}
+
+.overlay {
+    display: none;
+}
+
+.overlay i {
+    font-size: 2rem;
+    margin-top: 1rem;
+    position: absolute;
+    z-index: 100;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#campgroundDelete {
+    color: #d9534f;
+    top: 0;
+    right: 1.125rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+#campgroundEdit {
+    color: #5bc0de;
+    margin-right: 0.7rem;
+    top: 0;
+    right: 2.125rem;
+    font-size: 1.5rem;
+}
+
+#campgroundDelete:hover,
+#campgroundEdit:hover {
+    -o-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -webkit-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
+.imgbackground {
+    height: 200px;
+    border-radius: 15%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.imgAndCap {
+    display: block;
+}
+
+/* end user profile */
 
 /*login form styles*/
 

@@ -50,14 +50,15 @@
               <p>
                 <h4>Latest reviews for this campground:</h4>
               </p>
-              <hr class="mt-0">
+              <hr class="mt-0 mb-0">
+              <div class="well mt-4 pt-2">
               <% campground.reviews.slice(0, 5).forEach(function(review){ %>
                 <div class="row">
                   <div class="col-md-3">
                     <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %>
-                      <%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
-                        <div>Review by: <strong><a href="/users/<%= review.author.username %>"><%= review.author.username %></a></strong></div>
-                        <span><em><%= review.updatedAt.toDateString() %></em></span>
+                    <%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+                    <div>Review by: <strong><a href="/users/<%= review.author.username %>"><%= review.author.username %></a></strong></div>
+                    <span><em><%= review.updatedAt.toDateString() %></em></span>
                   </div>
                   <div class="col-md-9">
                     <p>
@@ -75,6 +76,7 @@
                 </div>
                 <hr>
                 <% }); %>
+                  </div>
                   <div class="mb-3">
                     <h4><a href="/campgrounds/<%= campground._id %>/reviews"><i class="fa fa-search" aria-hidden="true"></i> See all reviews</a></h4>
                   </div>

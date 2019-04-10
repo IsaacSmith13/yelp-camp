@@ -3,18 +3,19 @@ const Campground = require("../models/campground");
 var Review = require("../models/review");
 
 //is the user logged in?
-middlewareObj.isLoggedIn = function(req, res, next) {
+middlewareObj.isLoggedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
     req.flash("error", "You need to be logged in to do that");
+    req.session.redirect_to = req.path;
     res.redirect("/login");
 };
 
 //is current user the user who created this review?
-middlewareObj.isReviewOwner = function(req, res, next) {
+middlewareObj.isReviewOwner = function (req, res, next) {
     if (req.isAuthenticated()) {
-        Review.findById(req.params.review_id, function(err, foundReview) {
+        Review.findById(req.params.review_id, function (err, foundReview) {
             if (err || !foundReview) {
                 req.flash("error", "Something went wrong");
                 res.redirect("back");
@@ -38,16 +39,16 @@ middlewareObj.isReviewOwner = function(req, res, next) {
 };
 
 //has the user already made a review for this campground?
-middlewareObj.checkReviewExistence = function(req, res, next) {
+middlewareObj.checkReviewExistence = function (req, res, next) {
     if (req.isAuthenticated()) {
-        Campground.findById(req.params.id).populate("reviews").exec(function(err, foundCampground) {
+        Campground.findById(req.params.id).populate("reviews").exec(function (err, foundCampground) {
             if (err || !foundCampground) {
                 req.flash("error", "Campground not found");
                 res.redirect("back");
             }
             else {
                 // check if req.user._id exists in foundCampground.reviews
-                var foundUserReview = foundCampground.reviews.some(function(review) {
+                var foundUserReview = foundCampground.reviews.some(function (review) {
                     return review.author.id.equals(req.user._id);
                 });
                 if (foundUserReview) {
@@ -66,8 +67,8 @@ middlewareObj.checkReviewExistence = function(req, res, next) {
 };
 
 //is logged in user the user who created this campground?
-middlewareObj.isCampgroundOwner = function(req, res, next) {
-    Campground.findById(req.params.id, function(err, foundCampground) {
+middlewareObj.isCampgroundOwner = function (req, res, next) {
+    Campground.findById(req.params.id, function (err, foundCampground) {
         if (err || !foundCampground) {
             console.log(err);
             req.flash("error", "Sorry, that campground does not exist!");

@@ -6,7 +6,6 @@ const middleware = require("../middleware");
 const NodeGeocoder = require('node-geocoder');
 const multer = require('multer');
 const cloudinary = require('cloudinary');
-
 //multer configuration
 let storage = multer.diskStorage({
     filename: function (req, file, callback) {
@@ -21,14 +20,12 @@ const imageFilter = function (req, file, cb) {
     cb(null, true);
 };
 const upload = multer({ storage: storage, fileFilter: imageFilter });
-
 //cloudinary configuration
 cloudinary.config({
     cloud_name: "publicparkreview",
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
-
 //geocoder configuration
 const options = {
     provider: 'google',
@@ -37,9 +34,6 @@ const options = {
     formatter: null
 };
 const geocoder = NodeGeocoder(options);
-
-
-
 //INDEX - show all campgrounds
 router.get("/", function (req, res) {
     var perPage = 8;
@@ -89,7 +83,6 @@ router.get("/", function (req, res) {
         });
     }
 });
-
 // CREATE - add new campground to DB
 router.post("/", middleware.isLoggedIn, upload.single('image'), async function (req, res) {
     if (req.file) {
@@ -107,7 +100,6 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), async function (
             }
         });
     }
-
     try {
         // add author object to campground on req.body
         req.body.campground.author = {
@@ -115,7 +107,6 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), async function (
             username: req.user.username
         };
         // check if file uploaded
-
         // geocode location
         let data = await geocoder.geocode(req.body.campground.location);
         // assign lat and lng and update location with formatted address
@@ -132,14 +123,11 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), async function (
         req.flash('error', err.message);
         res.redirect('back');
     }
-
 });
-
 // NEW - form to add new campground
 router.get("/new", middleware.isLoggedIn, function (req, res) {
     res.render("campgrounds/new");
 });
-
 // SHOW - shows more info about one campground
 router.get("/:id", async function (req, res) {
     try {
@@ -156,13 +144,11 @@ router.get("/:id", async function (req, res) {
         return res.redirect("back");
     }
 });
-
 // EDIT - shows edit form for a campground
 router.get("/:id/edit", middleware.isLoggedIn, middleware.isCampgroundOwner, function (req, res) {
     //render edit template with that campground
     res.render("campgrounds/edit", { campground: req.campground });
 });
-
 // PUT - update campground in database
 router.put("/:id", middleware.isCampgroundOwner, upload.single('image'), function (req, res) {
     delete req.body.campground.rating;
@@ -206,7 +192,6 @@ router.put("/:id", middleware.isCampgroundOwner, upload.single('image'), functio
         }
     });
 });
-
 // DESTROY - deletes a campground
 router.delete('/:id', async function (req, res) {
     try {
@@ -226,5 +211,4 @@ router.delete('/:id', async function (req, res) {
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
-
 module.exports = router;
