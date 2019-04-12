@@ -2,12 +2,12 @@
 <html>
     <head>
         <title>YelpCamp</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="/stylesheets/landing.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
     </head>
     <body>
-    
+
     <div class="container">
         <% if(error && error.length > 0){ %>
             <div class="alert alert-danger" role="alert">
@@ -20,22 +20,22 @@
             </div>
         <% } %>
     </div>
-    
-    <div id="landing-header">
+
+    <div class="w-50 mx-auto" id="landing-header">
  		<h1>Welcome to YelpCamp!</h1>
 		<a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>
 		<p>
-    	    <form action="/campgrounds" method="GET" class="form-inline">
+    	    <form action="/campgrounds" method="GET" class="form-inline justify-content-center">
                 <div class="form-group">
                     <input type="text" name="search" placeholder="Search for a campground" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input class="btn btn-default form control" type="submit" value="Submit">
+                    <input class="btn btn-default form-control" type="submit" value="Submit">
                 </div>
             </form>
         </p>
     </div>
-    
+
     <ul class="slideshow">
       <li></li>
       <li></li>
