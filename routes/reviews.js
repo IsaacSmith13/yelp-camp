@@ -3,7 +3,6 @@ const router = express.Router({ mergeParams: true });
 const Campground = require("../models/campground");
 const Review = require("../models/review");
 const middleware = require("../middleware");
-
 // Reviews Index
 router.get("/", function (req, res) {
     Campground.findById(req.params.id).populate({
@@ -17,7 +16,6 @@ router.get("/", function (req, res) {
         res.render("reviews/index", { campground: campground });
     });
 });
-
 // Reviews New
 router.get("/new", middleware.isLoggedIn, middleware.checkReviewExistence, function (req, res) {
     // middleware.checkReviewExistence checks if a user already reviewed the campground, only one review per user is allowed
@@ -27,10 +25,8 @@ router.get("/new", middleware.isLoggedIn, middleware.checkReviewExistence, funct
             return res.redirect("back");
         }
         res.render("reviews/new", { campground: campground });
-
     });
 });
-
 // Reviews Create
 router.post("/", middleware.isLoggedIn, middleware.checkReviewExistence, function (req, res) {
     //lookup campground using ID
@@ -61,7 +57,6 @@ router.post("/", middleware.isLoggedIn, middleware.checkReviewExistence, functio
         });
     });
 });
-
 // Reviews Edit
 router.get("/:review_id/edit", middleware.isReviewOwner, function (req, res) {
     Review.findById(req.params.review_id, function (err, foundReview) {
@@ -72,7 +67,6 @@ router.get("/:review_id/edit", middleware.isReviewOwner, function (req, res) {
         res.render("reviews/edit", { campground_id: req.params.id, review: foundReview, referrer: req.body.referrer });
     });
 });
-
 // Reviews Update
 router.put("/:review_id", middleware.isReviewOwner, function (req, res) {
     Review.findByIdAndUpdate(req.params.review_id, req.body.review, { new: true }, function (err, updatedReview) {
@@ -90,14 +84,10 @@ router.put("/:review_id", middleware.isReviewOwner, function (req, res) {
             //save changes
             campground.save();
             req.flash("success", "Review successfully edited!");
-            if (req.body.referrer !== undefined) {
-                return res.redirect(req.body.referrer);
-            }
             res.redirect("/campgrounds/" + campground._id);
         });
     });
 });
-
 // Reviews Delete
 router.delete("/:review_id", middleware.isReviewOwner, function (req, res) {
     Review.findByIdAndRemove(req.params.review_id, function (err) {
@@ -130,5 +120,4 @@ function calculateAverage(reviews) {
     });
     return sum / reviews.length;
 }
-
 module.exports = router;
