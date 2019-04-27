@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
-var Campground = require("./models/campground");
-var Review = require("./models/review");
+const mongoose = require("mongoose");
+const Campground = require("./models/campground");
+const Review = require("./models/review");
 
-var seeds = [
+const seeds = [
     {
         name: "Cloud's Rest",
         image: "https://farm4.staticflickr.com/3795/10131087094_c1c0a1c859.jpg",

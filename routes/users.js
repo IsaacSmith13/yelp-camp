@@ -4,10 +4,11 @@ const Campground = require("../models/campground");
 const Review = require("../models/review");
 const User = require("../models/user");
 const middleware = require("../middleware");
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 //show user profile
-router.get("/:username", function (req, res, next) {
-    User.findOne({ "id": req.params.username.toLowerCase() }, function (err, foundUser) {
+router.get("/:username", function(req, res, next) {
+    User.findOne({ "id": req.params.username.toLowerCase() }, function(err, foundUser) {
         if (err || !foundUser) {
             req.flash("error", "User not found");
             return res.redirect("back");

@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -12,12 +11,15 @@ const localStrategy = require("passport-local");
 const seedDB = require("./seeds");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
-//requiring routes
+
+// requiring routes
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 const indexRoutes = require("./routes/index");
 const userRoutes = require("./routes/users");
+
 
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
@@ -28,6 +30,7 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.locals.moment = require("moment");
 
+
 // seedDB(); seeds the database
 
 //PASSPORT CONFIGURATION
@@ -36,31 +39,35 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//pass current user through
-app.use(function (req, res, next) {
+
+app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
     next();
 });
 
+
+// setting up routes
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 
-//404 not found
-app.get("/*", function (req, res) {
+// 404 not found
+app.get("/*", function(req, res) {
     req.flash("error", "Page not found");
     res.redirect("back");
 });
 
-app.listen(process.env.PORT, process.env.IP, function () {
+// tell server to start listening
+app.listen(process.env.PORT, process.env.IP, function() {
     console.log("The YelpCamp Server Has Started");
 });
