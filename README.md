@@ -1,17 +1,18 @@
 
-#YelpCamp
+# YelpCamp
 ---
 
 YelpCamp is a full-stack (M.E.N.), RESTful web application project created alongside the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/).
 
-##Live Demo
+## Live Demo
 ---
-You can preview a live demo of this app here: <https://yelpcamp-isaac.herokuapp.com/>.
+You can preview a [live demo of this app on Heroku](https://yelpcamp-isaac.herokuapp.com/).
+
 ![alt text](https://i.imgur.com/MvgCSc0.jpg "Landing Page")
 
 Feel free to clone the repository and use locally, however the site relies on several environment variables to access the database and use API's, so it can not be run as-is.
 
-##Features
+## Features
 ---
 * Search for campgrounds using title, description, or author username
 * User authorization/authentication using Passport.js
@@ -22,7 +23,7 @@ Feel free to clone the repository and use locally, however the site relies on se
 * View user profiles including posted campgrounds and reviews they've created
 * Admin permissions that allow the editing/deletion of other users' campgrounds and reviews
 
-##Built With
+## Built With
 ---
 * RESTful routing using express and mongoose
 * Cloudinary for image upload and storage
@@ -36,7 +37,7 @@ Feel free to clone the repository and use locally, however the site relies on se
 * Connect-flash for better error display to users
 * Heroku to deploy the website remotely
 
-####Stack
+#### Stack
 ---
 MongoDB, Express, Node.js
 
